@@ -5,6 +5,21 @@
     <title></title>
 </head>
 <body>
-
+    <form th:action="@{/user/add}" method="post">
+        <label>Username:
+            <input type="text" name="username" placeholder="Enter a username" th:value="${username}"/>
+        </label><br>
+        <label>Email:
+            <input type="text" name="email" placeholder="Enter an email address" th:value="${email}"/>
+        </label><br>
+        <label>Password:
+            <input type="password" name="password" placeholder="Enter a password" />
+        </label><br>
+        <label>Verify Password:
+            <input type="password" name="verify" placeholder="Verify Password" />
+        </label><br>
+        <input type = 'submit' value = 'Submit'>
+        <p th:if="${password == verify}" th:text="${error}"></p>
+    </form>
 </body>
 </html>
