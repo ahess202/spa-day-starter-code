@@ -13,6 +13,7 @@ public class SpaDayController {
 
     @GetMapping
     public String displayClientForm (Model model) {
+        model.addAttribute("title", "Client Form");
         return "serviceSelection";
     }
 
