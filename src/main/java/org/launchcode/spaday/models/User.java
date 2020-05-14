@@ -1,13 +1,10 @@
 package org.launchcode.spaday.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class User {
 
-    @NotNull(message="Username required!")
+    @NotEmpty(message="Username required!")
     @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters!")
     private String username;
 
@@ -18,10 +15,11 @@ public class User {
     @NotNull(message="Password required!")
     private String password;
 
-    @Min(value = 6, message = "Password must be at least 6 characters long!")
-    @NotNull(message="Password verification required!")
-    private String verify;
+//    @Min(value = 6, message = "Password must be at least 6 characters long!")
+//    @NotNull(message="Password verification required!")
+//    private String verify;
 
+    @NotNull(message = "Passwords do not match!")
     private String verifyPassword;
 
     public User() { }
@@ -31,8 +29,16 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.verify = verify;
+//        this.verify = verify;
         this.verifyPassword = verifyPassword;
+    }
+
+    private void checkPassword() {
+        if(this.password != null && this.verifyPassword != null) {
+            if (!this.password.equals(verifyPassword)) {
+                this.verifyPassword = null;
+            }
+        }
     }
 
     public String getUsername() {
@@ -43,13 +49,13 @@ public class User {
         this.username = username;
     }
 
-    public String getVerify() {
-        return verify;
-    }
-
-    public void setVerify(String verify) {
-        this.verify = verify;
-    }
+//    public String getVerify() {
+//        return verify;
+//    }
+//
+//    public void setVerify(String verify) {
+//        this.verify = verify;
+//    }
 
     public String getEmail() {
         return email;
@@ -65,6 +71,7 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+        checkPassword();
     }
 
     public String getVerifyPassword() {
@@ -73,5 +80,6 @@ public class User {
 
     public void setVerifyPassword(String verifyPassword) {
         this.verifyPassword = verifyPassword;
+        checkPassword();
     }
 }
